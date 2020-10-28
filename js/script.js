@@ -47,6 +47,7 @@ function getListTeams() {
                             Phone   : ${resDetail.phone} <br>
                             Website : ${resDetail.website} <br>
                             Email   : ${resDetail.email} <br>
+                            Club Color   : ${resDetail.clubColors} <br>
                             </p>`
                             console.log(resDetail);
                             document.getElementById("nama-tim").innerHTML = resDetail.name;
