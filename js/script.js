@@ -1,4 +1,4 @@
-const ApiKey = "use your own key";
+const ApiKey = "b5f1ce1572ed4bd793293ed3e425f545";
 const baseUrl = "https://api.football-data.org/v2/";
 const leagueId = "2021";
 const baseEndPoin = `${baseUrl}competitions/${leagueId}`;
