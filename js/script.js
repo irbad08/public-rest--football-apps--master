@@ -13,7 +13,7 @@ const fetchHeader = {
         'X-Auth-Token': ApiKey
     }
 };
-
+// Mengambil data list team
 function getListTeams() {
     title.innerHTML = "Daftar Tim Liga Primer Inggris"
     fetch(teamEndPoin, fetchHeader)
@@ -29,16 +29,38 @@ function getListTeams() {
                     <p>Berdiri: ${team.founded} <br>
                        Markas: ${team.venue}
                     </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">info</i></a>
-                </li>
-                `
+                    <a href="#modal" data-id="${team.id}" class="secondary-content modal-trigger"><i class="material-icons " data-id="${team.id}">info</i></a>
+                </li>`
             });
             contents.innerHTML = '<ul class="collection">' + teams + '</ul>'
+            const detail = document.querySelectorAll('.secondary-content');
+            detail.forEach(btn => {
+                btn.onclick = (event) => {
+                    let url = baseUrl + "teams/" + event.target.dataset.id;
+                    fetch(url, fetchHeader)
+                        .then(response => response.json())
+                        .then(resDetail => {
+                            dataModal = `
+                            <p>Short Name : ${resDetail.shortName}<br>
+                            Berdiri : ${resDetail.founded} <br>
+                            Address : ${resDetail.address} <br>
+                            Phone   : ${resDetail.phone} <br>
+                            Website : ${resDetail.website} <br>
+                            Email   : ${resDetail.email} <br>
+                            </p>`
+                            console.log(resDetail);
+                            document.getElementById("nama-tim").innerHTML = resDetail.name;
+                            document.getElementById("isi-modal").innerHTML = dataModal;
+                        })
+                    console.log(event.target.dataset.id);
+                    
+                }
+            })
         }).catch(err => {
             console.error(err);
         })
 }
-
+//Mengambil data standings
 function getListStandings() {
     title.innerHTML = "Klasemen Sementara Liga Primer Inggris";
     fetch(standingEndPoin, fetchHeader)
@@ -87,6 +109,7 @@ function getListStandings() {
         })
 }
 
+//Mengabil data pertandingan
 function getListMatches() {
     title.innerHTML = "Jadwal Pertandingan Liga Primer Inggris";
     fetch(matchEndPoin, fetchHeader)
@@ -160,3 +183,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if (page === "" || page === "!") page = "teams";
     loadPage(page);
 });
+
+//Modal detail
+document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.modal');
+    var modalDetail = M.Modal.init(elems);
+});
+
+
