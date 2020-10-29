@@ -1,4 +1,4 @@
-const ApiKey = "b5f1ce1572ed4bd793293ed3e425f545";
+const ApiKey = "5c305193dbe74ced987bb1e0ff36b1a0";
 const baseUrl = "https://api.football-data.org/v2/";
 const leagueId = "2021";
 const baseEndPoin = `${baseUrl}competitions/${leagueId}`;
@@ -40,6 +40,9 @@ function getListTeams() {
                     fetch(url, fetchHeader)
                         .then(response => response.json())
                         .then(resDetail => {
+                            dataTitle =`
+                            <img src="${resDetail.crestUrl}" alt="center" class="circle">
+                            <h4 class="modal-title">${resDetail.name}</h4>`;
                             dataModal = `
                             <p>Short Name : ${resDetail.shortName}<br>
                             Berdiri : ${resDetail.founded} <br>
@@ -50,7 +53,7 @@ function getListTeams() {
                             Club Color   : ${resDetail.clubColors} <br>
                             </p>`
                             console.log(resDetail);
-                            document.getElementById("nama-tim").innerHTML = resDetail.name;
+                            document.getElementById("nama-tim").innerHTML = dataTitle;
                             document.getElementById("isi-modal").innerHTML = dataModal;
                         })
                     console.log(event.target.dataset.id);
